@@ -36,7 +36,7 @@ app.use(
     // //  process.env.FRONTEND_URL || "http://localhost:1573",
     // credentials: true,
 
-    origin: process.env.NODE_ENV === "production" ? [env.FRONTEND_URL] : true, // Allow any origin in development
+    origin: process.env.NODE_ENV === "production" ? [process.env.FRONTEND_URL] : true, // Allow any origin in development
     credentials: true,
   })
 );
