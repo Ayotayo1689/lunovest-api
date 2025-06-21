@@ -47,7 +47,11 @@ app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
 
 console.log("🔄 Setting up routes...");
-
+app.get('/',(req, res) => {
+  res.status(201).json({
+      message: 'welcome to bitstock api '
+  })
+})
 // Health check endpoint (simple route first)
 app.get("/health", (req, res) => {
   res.status(200).json({
