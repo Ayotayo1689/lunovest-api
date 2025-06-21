@@ -34,7 +34,7 @@ app.use(
   cors({
     origin:
       // process.env.FRONTEND_URL ||
-      "http://localhost:1573",
+      "localhost:1573",
     credentials: true,
   })
 );
