@@ -27,9 +27,26 @@ console.log("🔄 Setting up middleware...");
 
 // Security middleware
 app.use(helmet());
+
+const allowedOrigins = [process.env.FRONTEND_URL, "http://localhost:1573"];
+
+// app.use(
+//   cors({
+//     origin: process.env.FRONTEND_URL || "http://localhost:1573",
+//     credentials: true,
+//   })
+// );
+
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:1573",
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      } else {
+        return callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );
