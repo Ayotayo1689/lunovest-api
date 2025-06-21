@@ -27,49 +27,31 @@ console.log("🔄 Setting up middleware...");
 
 // Security middleware
 app.use(helmet());
-
-// CORS configuration - Allow multiple origins
-const allowedOrigins = [
-  "http://localhost:3000",
-  "http://localhost:5173",
-  "http://localhost:5174",
-  "https://lunovest.vercel.app",
-  "https://lunovest-admin.vercel.app",
-  process.env.FRONTEND_URL,
-  process.env.ADMIN_FRONTEND_URL,
-].filter(Boolean); // Remove any undefined values
-
 app.use(
   cors({
-    origin: (origin, callback) => {
-      // Allow requests with no origin (like mobile apps or curl requests)
-      if (!origin) return callback(null, true);
-
-      if (allowedOrigins.indexOf(origin) !== -1) {
-        callback(null, true);
-      } else {
-        console.log(`❌ CORS blocked origin: ${origin}`);
-        console.log(`✅ Allowed origins: ${allowedOrigins.join(", ")}`);
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
+    origin: process.env.FRONTEND_URL || "http://localhost:1573",
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
   })
 );
+
+// Custom rate limiting
+// const limiter = createRateLimiter({
+//   windowMs: 15 * 60 * 1000, // 15 minutes
+//   max: 100, // limit each IP to 100 requests per windowMs
+//   message: "Too many requests from this IP, please try again later.",
+// })
+// app.use(limiter)
 
 // Body parsing middleware
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
 
 console.log("🔄 Setting up routes...");
-console.log("🔄 Setting up routes...");
-app.get("/", (req, res) => {
+app.get('/',(req, res) => {
   res.status(201).json({
-    message: "welcome to bitstock api ",
-  });
-});
+      message: 'welcome to bitstock api '
+  })
+})
 // Health check endpoint (simple route first)
 app.get("/health", (req, res) => {
   res.status(200).json({
@@ -77,21 +59,8 @@ app.get("/health", (req, res) => {
     message: "Crypto Investment API is running",
     timestamp: new Date().toISOString(),
     nodeVersion: process.version,
-    allowedOrigins: allowedOrigins,
   });
 });
-
-// Debug middleware to log requests (only in development)
-if (process.env.NODE_ENV === "development") {
-  app.use((req, res, next) => {
-    console.log(
-      `📥 ${req.method} ${req.path} - Origin: ${
-        req.get("Origin") || "No origin"
-      }`
-    );
-    next();
-  });
-}
 
 // Routes
 app.use("/api/auth", authRoutes);
@@ -134,7 +103,6 @@ app.listen(PORT, () => {
   console.log(`👨‍💼 Admin endpoints: http://localhost:${PORT}/api/admin/`);
   console.log(`👤 User endpoints: http://localhost:${PORT}/api/user/`);
   console.log(`🖼️ Image endpoints: http://localhost:${PORT}/api/images/`);
-  console.log(`🌐 Allowed CORS origins: ${allowedOrigins.join(", ")}`);
   console.log(`📝 Node.js version: ${process.version}`);
 
   // Initialize cron jobs after server starts
