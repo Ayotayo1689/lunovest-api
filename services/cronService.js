@@ -48,7 +48,7 @@ class CronService {
     // CHANGED: Daily profit calculation every 2 minutes for testing
     // Format: "*/2 * * * *" means every 2 minutes
     cron.schedule(
-      "*/2 * * * *", // Every 2 minutes for testing
+      "0 0 * * *", // Every 2 minutes for testing
       async () => {
         console.log("🕐 Running profit calculation at:", new Date().toISOString())
         try {
