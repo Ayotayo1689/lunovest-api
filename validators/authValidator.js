@@ -1,4 +1,4 @@
-const Joi = require("joi")
+const Joi = require("joi");
 
 const signupSchema = Joi.object({
   firstName: Joi.string()
@@ -7,7 +7,8 @@ const signupSchema = Joi.object({
     .pattern(/^[a-zA-Z\s]+$/)
     .required()
     .messages({
-      "string.pattern.base": "First name should only contain letters and spaces",
+      "string.pattern.base":
+        "First name should only contain letters and spaces",
       "string.min": "First name must be at least 2 characters long",
       "string.max": "First name cannot exceed 50 characters",
     }),
@@ -36,7 +37,8 @@ const signupSchema = Joi.object({
 
   password: Joi.string()
     .min(8)
-    .pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/)
+    .pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9])/)
+
     .required()
     .messages({
       "string.min": "Password must be at least 8 characters long",
@@ -47,7 +49,7 @@ const signupSchema = Joi.object({
   confirmPassword: Joi.string().valid(Joi.ref("password")).required().messages({
     "any.only": "Passwords do not match",
   }),
-})
+});
 
 const loginSchema = Joi.object({
   email: Joi.string().email().required().messages({
@@ -57,9 +59,9 @@ const loginSchema = Joi.object({
   password: Joi.string().required().messages({
     "string.empty": "Password is required",
   }),
-})
+});
 
 module.exports = {
   signupSchema,
   loginSchema,
-}
+};
