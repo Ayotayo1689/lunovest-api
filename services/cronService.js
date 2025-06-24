@@ -98,9 +98,9 @@ class CronService {
     console.log("🕐 Initializing interval-based job (every 23h 59m)...");
 
     // 23 hours and 59 minutes in milliseconds
-    // const intervalMs = (23 * 60 + 59) * 60 * 1000;
+    const intervalMs = (23 * 60 + 59) * 60 * 1000;
 
-    const intervalMs =   2 * 60 * 1000
+    // const intervalMs =   2 * 60 * 1000
 
     setInterval(async () => {
       console.log("🕐 Running profit calculation at:", new Date().toISOString());
