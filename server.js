@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 const path = require("path");
-// const CronService = require("./services/cronService");
+const CronService = require("./services/cronService");
 require("dotenv").config();
 
 
@@ -124,7 +124,7 @@ app.listen(PORT, () => {
   console.log(`📝 Node.js version: ${process.version}`);
 
   // Initialize cron jobs after server starts
-  // CronService.initializeCronJobs();
+  CronService.initializeCronJobs();
 });
 
 module.exports = app;
