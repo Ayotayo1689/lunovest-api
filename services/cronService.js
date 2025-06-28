@@ -90,32 +90,31 @@
 
 
 
+// const cron = require('node-cron');
+// const investmentController = require("../controllers/investmentController");
 
-const investmentController = require("../controllers/investmentController");
+// class CronService {
+//   static initializeCronJobs() {
+//     console.log("🕐 Initializing daily cron job for 12 AM...");
 
-class CronService {
-  static initializeCronJobs() {
-    console.log("🕐 Initializing interval-based job (every 23h 59m)...");
+//     // Run at 12:00 AM every day (midnight)
+//     cron.schedule('0 0 * * *', async () => {
+//       console.log("🕐 Running profit calculation at:", new Date().toISOString());
+      
+//       try {
+//         await investmentController.calculateDailyProfits();
+//         console.log("✅ Profit calculation completed successfully");
+//       } catch (error) {
+//         console.error("❌ Profit calculation failed:", error);
+//       }
+//     }, {
+//       scheduled: true,
+//       timezone: "UTC" // or your preferred timezone like "America/New_York"
+//     });
 
-    // 23 hours and 59 minutes in milliseconds
-    const intervalMs = (23 * 60 + 59) * 60 * 1000;
+//     console.log("✅ Daily cron job initialized successfully");
+//     console.log("⏱ Will run every day at 12:00 AM UTC");
+//   }
+// }
 
-    // const intervalMs =   2 * 60 * 1000
-
-    setInterval(async () => {
-      console.log("🕐 Running profit calculation at:", new Date().toISOString());
-      try {
-        await investmentController.calculateDailyProfits();
-        console.log("✅ Profit calculation completed successfully");
-      } catch (error) {
-        console.error("❌ Profit calculation failed:", error);
-      }
-    }, intervalMs);
-
-    console.log("✅ Interval-based job initialized successfully");
-    console.log("⏱ Will run every 23 hours and 59 minutes");
-  }
-}
-
-module.exports = CronService;
-
+// module.exports = CronService;
