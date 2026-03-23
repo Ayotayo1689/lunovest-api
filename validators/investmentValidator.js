@@ -5,14 +5,14 @@ const createInvestmentPlanSchema = Joi.object({
     "string.empty": "User ID is required",
   }),
 
-  investmentPlanName: Joi.string().min(3).max(100).required().messages({
+  investmentPlanName: Joi.string().min(3).max(500).required().messages({
     "string.min": "Investment plan name must be at least 3 characters long",
-    "string.max": "Investment plan name cannot exceed 100 characters",
+    "string.max": "Investment plan name cannot exceed 500 characters",
   }),
 
-  investmentPlanId: Joi.string().min(3).max(50).required().messages({
+  investmentPlanId: Joi.string().min(3).max(500).required().messages({
     "string.min": "Investment plan ID must be at least 3 characters long",
-    "string.max": "Investment plan ID cannot exceed 50 characters",
+    "string.max": "Investment plan ID cannot exceed 500 characters",
   }),
 
   dailyPercentage: Joi.number().min(0.01).max(100).required().messages({
@@ -37,9 +37,9 @@ const createInvestmentPlanSchema = Joi.object({
     "number.min": "Crypto amount must be greater than 0",
   }),
 
-  cryptoCoinName: Joi.string().min(2).max(20).required().messages({
+  cryptoCoinName: Joi.string().min(2).max(200).required().messages({
     "string.min": "Crypto coin name must be at least 2 characters",
-    "string.max": "Crypto coin name cannot exceed 20 characters",
+    "string.max": "Crypto coin name cannot exceed 200 characters",
   }),
 })
 
@@ -60,9 +60,9 @@ const depositToPlanSchema = Joi.object({
     "number.min": "Crypto amount must be greater than 0",
   }),
 
-  cryptoCoinName: Joi.string().min(2).max(20).required().messages({
+  cryptoCoinName: Joi.string().min(2).max(200).required().messages({
     "string.min": "Crypto coin name must be at least 2 characters",
-    "string.max": "Crypto coin name cannot exceed 20 characters",
+    "string.max": "Crypto coin name cannot exceed 200 characters",
   }),
 })
 
